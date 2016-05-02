@@ -5,4 +5,5 @@ go:
   - tip
 
 script:
+  - make deps
   - make verify
