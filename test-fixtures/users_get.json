@@ -1,0 +1,12 @@
+{
+    "user": {
+        "email": "jsnow@got.com",
+        "firstname": "John",
+        "fullname": "John Snow",
+        "id": "5bea0358-db40-429e-bd82-953016a7e2s7",
+        "lastname": "Snow",
+        "organizations": null,
+        "roles": null,
+        "ssh_public_keys": null
+    }
+}

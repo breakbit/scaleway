@@ -32,6 +32,7 @@ type Client struct {
 	// Services used for talking to Scaleway API.
 	Tokens        *TokensService
 	Organizations *OrganizationsService
+	Users         *UsersService
 }
 
 // timeLayout represents the time layout needed for parsing.
@@ -74,6 +75,7 @@ func NewClient(httpClient *http.Client) *Client {
 		UserAgent:      userAgent}
 	c.Tokens = &TokensService{client: c}
 	c.Organizations = &OrganizationsService{client: c}
+	c.Users = &UsersService{client: c}
 	return c
 }
 
