@@ -19,7 +19,7 @@ version:
 verify: vet lint test
 
 test:
-	@go test -v -coverprofile=coverage.txt -covermode=atomic
+	@go test -v -covermode=count -coverprofile=coverage.out $(HOME)/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $(COVERALLS_TOKEN)
 
 vet:
 	@go vet *.go
@@ -28,4 +28,6 @@ lint:
 	@golint *.go
 
 deps:
+	@go get golang.org/x/tools/cmd/cover
+	@go get github.com/mattn/goveralls
 	@go get -u github.com/golang/lint/golint
