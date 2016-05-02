@@ -9,6 +9,7 @@ export GO15VENDOREXPERIMENT := 1
 
 help:
 	# make version - show information about current version
+	# make deps - install dependencies
 	# make verify - run vet, lint and test
 version:
 	@echo Name: $(NAME)
@@ -18,7 +19,7 @@ version:
 verify: vet lint test
 
 test:
-	@go test -v $(glide novendor) -cover
+	@go test -v
 
 vet:
 	@go vet *.go
@@ -28,5 +29,3 @@ lint:
 
 deps:
 	@go get -u github.com/golang/lint/golint
-	@go get -u github.com/Masterminds/glide
-	@glide install
