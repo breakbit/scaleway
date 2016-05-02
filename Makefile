@@ -19,7 +19,7 @@ version:
 verify: vet lint test
 
 test:
-	@go test -v
+	@go test -v -coverprofile=coverage.txt -covermode=atomic
 
 vet:
 	@go vet *.go
