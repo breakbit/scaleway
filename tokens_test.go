@@ -119,7 +119,7 @@ func TestTokensService_Get(t *testing.T) {
 		t.Errorf("Tokens.Get returned error: %v", err)
 	}
 	if !reflect.DeepEqual(token, want) {
-		t.Errorf("Tokens.Create returned %+v\n, want %+v", token, want)
+		t.Errorf("Tokens.Get returned %+v\n, want %+v", token, want)
 	}
 }
 
