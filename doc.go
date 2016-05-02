@@ -18,5 +18,6 @@ access differents parts of the Scaleway API. For example:
     token, _, _ := client.Tokens.Create(inBody)
 
 	client.AuthToken = token
+
 */
 package scaleway
