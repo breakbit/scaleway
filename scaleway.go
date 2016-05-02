@@ -73,6 +73,7 @@ func NewClient(httpClient *http.Client) *Client {
 		ComputeBaseURL: computeBaseURL,
 		UserAgent:      userAgent}
 	c.Tokens = &TokensService{client: c}
+	c.Organizations = &OrganizationsService{client: c}
 	return c
 }
 

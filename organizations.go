@@ -1,5 +1,7 @@
 package scaleway
 
+import "fmt"
+
 // OrganizationsService handles communication with the account API.
 type OrganizationsService struct {
 	client *Client
@@ -23,11 +25,17 @@ func (s *OrganizationsService) List() ([]*Organization, *Response, error) {
 }
 
 func (s *OrganizationsService) listOrganizations() ([]*Organization, *Response, error) {
-	//u := fmt.Sprintf("/organizations")
-	//req, err := s.client.NewRequestAccount("GET", u, nil)
-	//if err != nil {
-	//	return nil, nil, err
-	//}
+	u := fmt.Sprintf("/organizations")
+	req, err := s.client.NewRequestAccount("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
 
-	return nil, nil, nil
+	organizations := new(OrganizationListResponse)
+	resp, err := s.client.Do(req, organizations)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return organizations.Organizations, resp, nil
 }
