@@ -78,7 +78,11 @@ func TestNewClient(t *testing.T) {
 	}
 }
 
-type requestTest struct {
+type inBody struct {
+	A interface{}
+}
+
+type requestAccountTest struct {
 	inURL   string
 	outURL  string
 	inBody  inBody
@@ -86,21 +90,64 @@ type requestTest struct {
 	wantErr bool
 }
 
-type inBody struct {
-	A interface{}
-}
-
-var requestTests = []requestTest{
+var requestAccountTests = []requestAccountTest{
 	{"/foo", defaultAccountBaseURL + "foo", inBody{A: "a"}, `{"A":"a"}` + "\n", false},
 	{"%zzzzzz", defaultAccountBaseURL + "foo", inBody{A: "a"}, ``, true},
 	{"/foo", defaultAccountBaseURL + "foo", inBody{A: func() {}}, ``, true},
 }
 
 func TestNewRequestAccount(t *testing.T) {
-	for _, tt := range requestTests {
+	for _, tt := range requestAccountTests {
 		c := NewClient(nil)
 
 		req, err := c.NewRequestAccount("GET", tt.inURL, tt.inBody)
+		if (err != nil) != tt.wantErr {
+			t.Errorf("NewRequest error: %v", err)
+			continue
+		}
+
+		if req == nil {
+			continue
+		}
+
+		if got, want := req.URL.String(), tt.outURL; got != want {
+			t.Errorf("Newrequest (%q) URL is %v, want %v", tt.inURL, got, want)
+		}
+
+		body, _ := ioutil.ReadAll(req.Body)
+		if got, want := string(body), tt.outBody; got != want {
+			t.Errorf("Newrequest (%v) Body is %#v, want %#v", tt.inBody, got, want)
+		}
+
+		if got, want := req.Header.Get("User-Agent"), c.UserAgent; got != want {
+			t.Errorf("Newrequest () User-Agent %v, want %v", got, want)
+		}
+
+		if got, want := req.Header.Get("Content-Type"), contentType; got != want {
+			t.Errorf("Newrequest () Content-Type %v, want %v", got, want)
+		}
+	}
+}
+
+type requestComputeTest struct {
+	inURL   string
+	outURL  string
+	inBody  inBody
+	outBody string
+	wantErr bool
+}
+
+var requestComputeTests = []requestComputeTest{
+	{"/foo", defaultComputeBaseURL + "foo", inBody{A: "a"}, `{"A":"a"}` + "\n", false},
+	{"%zzzzzz", defaultComputeBaseURL + "foo", inBody{A: "a"}, ``, true},
+	{"/foo", defaultComputeBaseURL + "foo", inBody{A: func() {}}, ``, true},
+}
+
+func TestNewRequestCompute(t *testing.T) {
+	for _, tt := range requestComputeTests {
+		c := NewClient(nil)
+
+		req, err := c.NewRequestCompute("GET", tt.inURL, tt.inBody)
 		if (err != nil) != tt.wantErr {
 			t.Errorf("NewRequest error: %v", err)
 			continue

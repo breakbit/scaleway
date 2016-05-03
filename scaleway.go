@@ -33,6 +33,7 @@ type Client struct {
 	Tokens        *TokensService
 	Organizations *OrganizationsService
 	Users         *UsersService
+	Volumes       *VolumesService
 }
 
 // timeLayout represents the time layout needed for parsing.
@@ -76,6 +77,7 @@ func NewClient(httpClient *http.Client) *Client {
 	c.Tokens = &TokensService{client: c}
 	c.Organizations = &OrganizationsService{client: c}
 	c.Users = &UsersService{client: c}
+	c.Volumes = &VolumesService{client: c}
 	return c
 }
 
@@ -91,6 +93,43 @@ func (c *Client) NewRequestAccount(method, urlStr string, body interface{}) (*ht
 	}
 
 	u := c.AccountBaseURL.ResolveReference(rel)
+
+	var buf io.ReadWriter
+	if body != nil {
+		buf = new(bytes.Buffer)
+		err := json.NewEncoder(buf).Encode(body)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	req, err := http.NewRequest(method, u.String(), buf)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+	if c.UserAgent != "" {
+		req.Header.Add("User-Agent", c.UserAgent)
+	}
+	if c.AuthToken != "" {
+		req.Header.Add("X-Auth-Token", c.AuthToken)
+	}
+	return req, nil
+}
+
+// NewRequestCompute creates an API request. A relative URL can be provided in urlStr,
+// in which case it is resolved relative to the ComputeBaseURL of the Client.
+// Relative URLs should always be specified without a preceding slash.  If
+// specified, the value pointed to by body is JSON encoded and included as the
+// request body.
+func (c *Client) NewRequestCompute(method, urlStr string, body interface{}) (*http.Request, error) {
+	rel, err := url.Parse(urlStr)
+	if err != nil {
+		return nil, err
+	}
+
+	u := c.ComputeBaseURL.ResolveReference(rel)
 
 	var buf io.ReadWriter
 	if body != nil {
