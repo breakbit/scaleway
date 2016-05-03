@@ -7,11 +7,13 @@ type OrganizationsService struct {
 	client *Client
 }
 
+type OrganizationID string
+
 // Organization represents a Scaleway organization.
 type Organization struct {
-	ID    string  `json:"id,omitempty"`
-	Name  string  `json:"name,omitempty"`
-	Users []*User `json:"users,omitempty"`
+	ID    OrganizationID `json:"id,omitempty"`
+	Name  string         `json:"name,omitempty"`
+	Users []*User        `json:"users,omitempty"`
 }
 
 // OrganizationListResponse represents a Scaleway organization list response.
