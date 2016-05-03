@@ -78,37 +78,54 @@ func TestNewClient(t *testing.T) {
 	}
 }
 
+type requestTest struct {
+	inURL   string
+	outURL  string
+	inBody  inBody
+	outBody string
+	wantErr bool
+}
+
+type inBody struct {
+	A interface{}
+}
+
+var requestTests = []requestTest{
+	{"/foo", defaultAccountBaseURL + "foo", inBody{A: "a"}, `{"A":"a"}` + "\n", false},
+	{"%zzzzzz", defaultAccountBaseURL + "foo", inBody{A: "a"}, ``, true},
+	{"/foo", defaultAccountBaseURL + "foo", inBody{A: func() {}}, ``, true},
+}
+
 func TestNewRequestAccount(t *testing.T) {
-	c := NewClient(nil)
+	for _, tt := range requestTests {
+		c := NewClient(nil)
 
-	inURL, outURL := "/foo", defaultAccountBaseURL+"foo"
-	inBody := struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-		Expires  bool   `json:"expires"`
-	}{
-		"jsnow@got.com",
-		"winteriscoming",
-		true,
-	}
-	outBody := `{"email":"jsnow@got.com","password":"winteriscoming","expires":true}` + "\n"
-	req, _ := c.NewRequestAccount("GET", inURL, inBody)
+		req, err := c.NewRequestAccount("GET", tt.inURL, tt.inBody)
+		if (err != nil) != tt.wantErr {
+			t.Errorf("NewRequest error: %v", err)
+			continue
+		}
 
-	if got, want := req.URL.String(), outURL; got != want {
-		t.Errorf("Newrequest (%q) URL is %v, want %v", inURL, got, want)
-	}
+		if req == nil {
+			continue
+		}
 
-	body, _ := ioutil.ReadAll(req.Body)
-	if got, want := string(body), outBody; got != want {
-		t.Errorf("Newrequest (%v) Body is %v, want %v", inBody, got, want)
-	}
+		if got, want := req.URL.String(), tt.outURL; got != want {
+			t.Errorf("Newrequest (%q) URL is %v, want %v", tt.inURL, got, want)
+		}
 
-	if got, want := req.Header.Get("User-Agent"), c.UserAgent; got != want {
-		t.Errorf("Newrequest () User-Agent %v, want %v", got, want)
-	}
+		body, _ := ioutil.ReadAll(req.Body)
+		if got, want := string(body), tt.outBody; got != want {
+			t.Errorf("Newrequest (%v) Body is %#v, want %#v", tt.inBody, got, want)
+		}
 
-	if got, want := req.Header.Get("Content-Type"), contentType; got != want {
-		t.Errorf("Newrequest () Content-Type %v, want %v", got, want)
+		if got, want := req.Header.Get("User-Agent"), c.UserAgent; got != want {
+			t.Errorf("Newrequest () User-Agent %v, want %v", got, want)
+		}
+
+		if got, want := req.Header.Get("Content-Type"), contentType; got != want {
+			t.Errorf("Newrequest () Content-Type %v, want %v", got, want)
+		}
 	}
 }
 
