@@ -7,6 +7,7 @@ type OrganizationsService struct {
 	client *Client
 }
 
+// OrganizationID represents organization id.
 type OrganizationID string
 
 // Organization represents a Scaleway organization.
