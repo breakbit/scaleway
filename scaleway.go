@@ -93,29 +93,7 @@ func (c *Client) NewRequestAccount(method, urlStr string, body interface{}) (*ht
 	}
 
 	u := c.AccountBaseURL.ResolveReference(rel)
-
-	var buf io.ReadWriter
-	if body != nil {
-		buf = new(bytes.Buffer)
-		err := json.NewEncoder(buf).Encode(body)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	req, err := http.NewRequest(method, u.String(), buf)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-	if c.UserAgent != "" {
-		req.Header.Add("User-Agent", c.UserAgent)
-	}
-	if c.AuthToken != "" {
-		req.Header.Add("X-Auth-Token", c.AuthToken)
-	}
-	return req, nil
+	return c.newRequest(method, u.String(), body)
 }
 
 // NewRequestCompute creates an API request. A relative URL can be provided in urlStr,
@@ -130,7 +108,11 @@ func (c *Client) NewRequestCompute(method, urlStr string, body interface{}) (*ht
 	}
 
 	u := c.ComputeBaseURL.ResolveReference(rel)
+	return c.newRequest(method, u.String(), body)
+}
 
+// newRequest creates http.Request.
+func (c *Client) newRequest(method, u string, body interface{}) (*http.Request, error) {
 	var buf io.ReadWriter
 	if body != nil {
 		buf = new(bytes.Buffer)
@@ -140,7 +122,7 @@ func (c *Client) NewRequestCompute(method, urlStr string, body interface{}) (*ht
 		}
 	}
 
-	req, err := http.NewRequest(method, u.String(), buf)
+	req, err := http.NewRequest(method, u, buf)
 	if err != nil {
 		return nil, err
 	}

@@ -143,6 +143,45 @@ var requestComputeTests = []requestComputeTest{
 	{"/foo", defaultComputeBaseURL + "foo", inBody{A: func() {}}, ``, true},
 }
 
+var requestTests = []requestComputeTest{
+	{"/foo", "/foo", inBody{A: "a"}, `{"A":"a"}` + "\n", false},
+	{"%zzzzzz", "", inBody{A: "a"}, ``, true},
+	{"/foo", "/foo", inBody{A: func() {}}, ``, true},
+}
+
+func TestNewRequest(t *testing.T) {
+	for _, tt := range requestTests {
+		c := NewClient(nil)
+
+		req, err := c.newRequest("GET", tt.inURL, tt.inBody)
+		if (err != nil) != tt.wantErr {
+			t.Errorf("NewRequest error: %v", err)
+			continue
+		}
+
+		if req == nil {
+			continue
+		}
+
+		if got, want := req.URL.String(), tt.outURL; got != want {
+			t.Errorf("Newrequest (%q) URL is %v, want %v", tt.inURL, got, want)
+		}
+
+		body, _ := ioutil.ReadAll(req.Body)
+		if got, want := string(body), tt.outBody; got != want {
+			t.Errorf("Newrequest (%v) Body is %#v, want %#v", tt.inBody, got, want)
+		}
+
+		if got, want := req.Header.Get("User-Agent"), c.UserAgent; got != want {
+			t.Errorf("Newrequest () User-Agent %v, want %v", got, want)
+		}
+
+		if got, want := req.Header.Get("Content-Type"), contentType; got != want {
+			t.Errorf("Newrequest () Content-Type %v, want %v", got, want)
+		}
+	}
+}
+
 func TestNewRequestCompute(t *testing.T) {
 	for _, tt := range requestComputeTests {
 		c := NewClient(nil)
