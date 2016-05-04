@@ -105,7 +105,7 @@ func TestVolumesService_List(t *testing.T) {
 		t.Errorf("Volumes.List returned error: %v", err)
 	}
 	want := []*Volume{
-		&Volume{
+		{
 			ExportURI:    "",
 			ID:           "f929fe39-63f8-4be8-a80e-1e9c8ae22a76",
 			Name:         "volume-0-1",
@@ -113,7 +113,7 @@ func TestVolumesService_List(t *testing.T) {
 			Size:         10000000000,
 			Type:         "l_ssd",
 		},
-		&Volume{
+		{
 			ExportURI:    "",
 			ID:           "0facb6b5-b117-441a-81c1-f28b1d723779",
 			Name:         "volume-0-2",

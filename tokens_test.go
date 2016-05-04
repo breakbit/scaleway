@@ -75,7 +75,7 @@ func TestTokensService_List(t *testing.T) {
 	}
 	creationDate, _ := time.Parse("2006-01-02T15:04:05.999999Z07:00", "2014-05-22T08:06:51.742826+00:00")
 	want := []*Token{
-		&Token{
+		{
 			CreationDate:      Ntime(creationDate),
 			Expires:           Ntime{},
 			ID:                "654c95b0-2cf5-41a3-b3cc-733ffba4b4b7",
