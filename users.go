@@ -8,7 +8,6 @@ type UsersService struct {
 }
 
 // User represents a Scaleway user.
-// TODO @dmelina add role ? and organization ?
 type User struct {
 	Email      string   `json:"email,omitempty"`
 	Firstname  string   `json:"firstname,omitempty"`

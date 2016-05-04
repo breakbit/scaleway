@@ -12,7 +12,6 @@ type VolumesService struct {
 
 // Volume represents a Scaleway volume.
 type Volume struct {
-	//TODO @dmelina FIX server (string ?)
 	Name         string         `json:"name,omitempty"`
 	ID           string         `json:"id,omitempty"`
 	ExportURI    string         `json:"export_uri,omitempty"`

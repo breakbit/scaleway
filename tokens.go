@@ -12,7 +12,6 @@ type TokensService struct {
 
 // Token represents a Scaleway auth-token.
 type Token struct {
-	//TODO @dmelina FIX permissions, roles
 	CreationDate      Ntime    `json:"creation_date,omitempty"`
 	Expires           Ntime    `json:"expires,omitempty"`
 	ID                string   `json:"id,omitempty"`

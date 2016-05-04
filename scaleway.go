@@ -138,7 +138,6 @@ func (c *Client) newRequest(method, u string, body interface{}) (*http.Request, 
 }
 
 // Do sends an API request and returns the API response.
-// TODO @dmelina Need more documentation
 func (c *Client) Do(req *http.Request, v interface{}) (*Response, error) {
 	resp, err := c.client.Do(req)
 	if err != nil {
