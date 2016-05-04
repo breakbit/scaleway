@@ -18,8 +18,8 @@ type User struct {
 	SSHPubKeys []string `json:"ssh_public_keys,omitempty"`
 }
 
-// UserResponse represents a Scaleway token creation response.
-type UserResponse struct {
+// userResponse represents a Scaleway token creation response.
+type userResponse struct {
 	User *User `json:"user"`
 }
 
@@ -31,7 +31,7 @@ func (s *UsersService) Get(id string) (*User, *Response, error) {
 		return nil, nil, err
 	}
 
-	user := new(UserResponse)
+	user := new(userResponse)
 	resp, err := s.client.Do(req, user)
 	if err != nil {
 		return nil, nil, err

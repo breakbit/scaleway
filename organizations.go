@@ -17,8 +17,8 @@ type Organization struct {
 	Users []*User        `json:"users,omitempty"`
 }
 
-// OrganizationListResponse represents a Scaleway organization list response.
-type OrganizationListResponse struct {
+// organizationListResponse represents a Scaleway organization list response.
+type organizationListResponse struct {
 	Organizations []*Organization `json:"organizations"`
 }
 
@@ -34,7 +34,7 @@ func (s *OrganizationsService) listOrganizations() ([]*Organization, *Response, 
 		return nil, nil, err
 	}
 
-	organizations := new(OrganizationListResponse)
+	organizations := new(organizationListResponse)
 	resp, err := s.client.Do(req, organizations)
 	if err != nil {
 		return nil, nil, err

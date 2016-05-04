@@ -30,13 +30,13 @@ type VolumeRequest struct {
 	Size         int            `json:"size"`
 }
 
-// VolumeResponse represents a Scaleway volume creation response.
-type VolumeResponse struct {
+// volumeResponse represents a Scaleway volume creation response.
+type volumeResponse struct {
 	Volume *Volume `json:"volume"`
 }
 
-// VolumeListResponse represents a Scaleway volume list response.
-type VolumeListResponse struct {
+// volumeListResponse represents a Scaleway volume list response.
+type volumeListResponse struct {
 	Volumes []*Volume `json:"volumes"`
 }
 
@@ -48,7 +48,7 @@ func (s *VolumesService) Create(vr *VolumeRequest) (*Volume, *Response, error) {
 		return nil, nil, err
 	}
 
-	volume := new(VolumeResponse)
+	volume := new(volumeResponse)
 	resp, err := s.client.Do(req, volume)
 	if err != nil {
 		return nil, nil, err
@@ -68,7 +68,7 @@ func (s *VolumesService) listVolumes() ([]*Volume, *Response, error) {
 		return nil, nil, err
 	}
 
-	volumes := new(VolumeListResponse)
+	volumes := new(volumeListResponse)
 	resp, err := s.client.Do(req, volumes)
 	if err != nil {
 		return nil, nil, err
@@ -84,7 +84,7 @@ func (s *VolumesService) Get(id string) (*Volume, *Response, error) {
 		return nil, nil, err
 	}
 
-	volume := new(VolumeResponse)
+	volume := new(volumeResponse)
 	resp, err := s.client.Do(req, volume)
 	if err != nil {
 		return nil, nil, err

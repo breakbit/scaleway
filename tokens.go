@@ -28,13 +28,13 @@ type TokenRequest struct {
 	Expires  bool   `json:"expires"`
 }
 
-// TokenResponse represents a Scaleway token creation response.
-type TokenResponse struct {
+// tokenResponse represents a Scaleway token creation response.
+type tokenResponse struct {
 	Token *Token `json:"token"`
 }
 
-// TokenListResponse represents a Scaleway token list response.
-type TokenListResponse struct {
+// tokenListResponse represents a Scaleway token list response.
+type tokenListResponse struct {
 	Tokens []*Token `json:"tokens"`
 }
 
@@ -47,7 +47,7 @@ func (s *TokensService) Create(tr *TokenRequest) (*Token, *Response, error) {
 		return nil, nil, err
 	}
 
-	token := new(TokenResponse)
+	token := new(tokenResponse)
 	resp, err := s.client.Do(req, token)
 	if err != nil {
 		return nil, nil, err
@@ -67,7 +67,7 @@ func (s *TokensService) listTokens() ([]*Token, *Response, error) {
 		return nil, nil, err
 	}
 
-	tokens := new(TokenListResponse)
+	tokens := new(tokenListResponse)
 	resp, err := s.client.Do(req, tokens)
 	if err != nil {
 		return nil, nil, err
@@ -83,7 +83,7 @@ func (s *TokensService) Get(id string) (*Token, *Response, error) {
 		return nil, nil, err
 	}
 
-	token := new(TokenResponse)
+	token := new(tokenResponse)
 	resp, err := s.client.Do(req, token)
 	if err != nil {
 		return nil, nil, err
@@ -99,7 +99,7 @@ func (s *TokensService) Update(id string) (*Token, *Response, error) {
 		return nil, nil, err
 	}
 
-	token := new(TokenResponse)
+	token := new(tokenResponse)
 	resp, err := s.client.Do(req, token)
 	if err != nil {
 		return nil, nil, err
