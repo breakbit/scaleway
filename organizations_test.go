@@ -29,11 +29,11 @@ func TestOrganizationService_List(t *testing.T) {
 	}
 
 	want := []*Organization{
-		&Organization{
+		{
 			ID:   "000a115d-2852-4b0a-9ce8-47f1134ba95a",
 			Name: "jsnow@got.com",
 			Users: []*User{
-				&User{
+				{
 					Email:      "jsnow@got.com",
 					Firstname:  "John",
 					Fullname:   "John Snow",
