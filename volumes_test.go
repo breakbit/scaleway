@@ -59,6 +59,31 @@ func TestVolumesService_Get(t *testing.T) {
 	defer teardown()
 
 	client.AuthToken = "654c95b0-2cf5-41a3-b3cc-733ffba4b4b7"
+
+	data := testOpenFixture(t, filepath.Join(fixtureDir, "volumes_get.json"))
+
+	want := &Volume{
+		Name:         "volume-0-1",
+		ID:           "f929fe39-63f8-4be8-a80e-1e9c8ae22a76",
+		ExportURI:    "",
+		Organization: "000a115d-2852-4b0a-9ce8-47f1134ba95a",
+		Size:         10000000000,
+		Type:         "l_ssd",
+	}
+
+	mux.HandleFunc(fmt.Sprintf("/volumes/%s", want.ID), func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		w.Header().Add("Content-Type", contentType)
+		fmt.Fprint(w, string(data))
+	})
+
+	volume, _, err := client.Volumes.Get(want.ID)
+	if err != nil {
+		t.Errorf("Volumes.Get returned error: %v", err)
+	}
+	if !reflect.DeepEqual(volume, want) {
+		t.Errorf("Volumes.Get returned %+v\n, want %+v", volume, want)
+	}
 }
 
 func TestVolumesService_List(t *testing.T) {
@@ -66,6 +91,40 @@ func TestVolumesService_List(t *testing.T) {
 	defer teardown()
 
 	client.AuthToken = "654c95b0-2cf5-41a3-b3cc-733ffba4b4b7"
+
+	data := testOpenFixture(t, filepath.Join(fixtureDir, "volumes_list.json"))
+
+	mux.HandleFunc("/volumes", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		w.Header().Add("Content-Type", contentType)
+		fmt.Fprint(w, string(data))
+	})
+
+	volumes, _, err := client.Volumes.List()
+	if err != nil {
+		t.Errorf("Volumes.List returned error: %v", err)
+	}
+	want := []*Volume{
+		&Volume{
+			ExportURI:    "",
+			ID:           "f929fe39-63f8-4be8-a80e-1e9c8ae22a76",
+			Name:         "volume-0-1",
+			Organization: "000a115d-2852-4b0a-9ce8-47f1134ba95a",
+			Size:         10000000000,
+			Type:         "l_ssd",
+		},
+		&Volume{
+			ExportURI:    "",
+			ID:           "0facb6b5-b117-441a-81c1-f28b1d723779",
+			Name:         "volume-0-2",
+			Organization: "000a115d-2852-4b0a-9ce8-47f1134ba95a",
+			Size:         20000000000,
+			Type:         "l_ssd",
+		},
+	}
+	if !reflect.DeepEqual(volumes, want) {
+		t.Errorf("Volumes.List returned %+v\n, want %+v", volumes, want)
+	}
 }
 
 func TestVolumesService_Delete(t *testing.T) {
@@ -73,4 +132,16 @@ func TestVolumesService_Delete(t *testing.T) {
 	defer teardown()
 
 	client.AuthToken = "654c95b0-2cf5-41a3-b3cc-733ffba4b4b7"
+
+	volumeID := "0facb6b5-b117-441a-81c1-f28b1d723779"
+
+	mux.HandleFunc(fmt.Sprintf("/volumes/%s", volumeID), func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "DELETE")
+		w.Header().Add("Content-Type", contentType)
+	})
+
+	_, err := client.Volumes.Delete(volumeID)
+	if err != nil {
+		t.Errorf("Volumes.Delete returned error: %v", err)
+	}
 }
