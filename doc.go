@@ -1,3 +1,7 @@
+// Copyright 2016 The BreakBit Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 /*
 Package scaleway provides a client for using the Scaleway API.
 
