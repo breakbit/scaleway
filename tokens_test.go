@@ -85,7 +85,7 @@ func TestTokensService_List(t *testing.T) {
 		},
 	}
 	if !reflect.DeepEqual(tokens, want) {
-		t.Errorf("Tokens.Create returned %+v\n, want %+v", tokens, want)
+		t.Errorf("Tokens.List returned %+v\n, want %+v", tokens, want)
 	}
 }
 
