@@ -17,7 +17,7 @@ type Volume struct {
 	ExportURI    string         `json:"export_uri,omitempty"`
 	Organization OrganizationID `json:"organization,omitempty"`
 	//Server       string         `json:"server,omitempty"`
-	Size int    `json:"size,omitempty"`
+	Size uint64 `json:"size,omitempty"`
 	Type string `json:"volume_type"`
 }
 
