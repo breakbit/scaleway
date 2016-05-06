@@ -77,7 +77,7 @@ func TestVolumesService_Get(t *testing.T) {
 		fmt.Fprint(w, string(data))
 	})
 
-	volume, _, err := client.Volumes.Get(want.ID)
+	volume, _, err := client.Volumes.Get(string(want.ID))
 	if err != nil {
 		t.Errorf("Volumes.Get returned error: %v", err)
 	}

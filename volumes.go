@@ -10,10 +10,13 @@ type VolumesService struct {
 	client *Client
 }
 
+// VolumeID represents volume identifier.
+type VolumeID string
+
 // Volume represents a Scaleway volume.
 type Volume struct {
 	Name         string         `json:"name,omitempty"`
-	ID           string         `json:"id,omitempty"`
+	ID           VolumeID       `json:"id,omitempty"`
 	ExportURI    string         `json:"export_uri,omitempty"`
 	Organization OrganizationID `json:"organization,omitempty"`
 	//Server       string         `json:"server,omitempty"`
