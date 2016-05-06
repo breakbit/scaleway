@@ -16,7 +16,10 @@ version:
 	@echo Version: $(VERSION)
 	@echo Revision: $(REVISION)
 
-verify: vet lint test
+verify: gover vet lint test
+
+gover:
+	@go version
 
 test:
 	@go test -v -covermode=count -coverprofile=coverage.out
