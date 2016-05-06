@@ -23,7 +23,7 @@ type Snapshot struct {
 	BaseVolume       *Volume `json:"base_volume,omitempty"`
 }
 
-// VolumeRequest represents a request to create a volume.
+// SnapshotRequest represents a request to create a snapshot.
 type SnapshotRequest struct {
 	Name         string `json:"name,omitempty"`
 	Organization string `json:"organization,omitempty"`
