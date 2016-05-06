@@ -10,15 +10,12 @@ type VolumesService struct {
 	client *Client
 }
 
-// VolumeID represents volume identifier.
-type VolumeID string
-
 // Volume represents a Scaleway volume.
 type Volume struct {
-	Name         string         `json:"name,omitempty"`
-	ID           VolumeID       `json:"id,omitempty"`
-	ExportURI    string         `json:"export_uri,omitempty"`
-	Organization OrganizationID `json:"organization,omitempty"`
+	Name         string `json:"name,omitempty"`
+	ID           string `json:"id,omitempty"`
+	ExportURI    string `json:"export_uri,omitempty"`
+	Organization string `json:"organization,omitempty"`
 	//Server       string         `json:"server,omitempty"`
 	Size uint64 `json:"size,omitempty"`
 	Type string `json:"volume_type"`
@@ -26,10 +23,10 @@ type Volume struct {
 
 // VolumeRequest represents a request to create a volume.
 type VolumeRequest struct {
-	Name         string         `json:"name"`
-	Organization OrganizationID `json:"organization"`
-	Type         string         `json:"volume_type"`
-	Size         int            `json:"size"`
+	Name         string `json:"name"`
+	Organization string `json:"organization"`
+	Type         string `json:"volume_type"`
+	Size         int    `json:"size"`
 }
 
 // volumeResponse represents a Scaleway volume creation response.
