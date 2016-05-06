@@ -18,7 +18,7 @@ type Volume struct {
 	Organization string `json:"organization,omitempty"`
 	//Server       string         `json:"server,omitempty"`
 	Size uint64 `json:"size,omitempty"`
-	Type string `json:"volume_type"`
+	Type string `json:"volume_type,omitempty"`
 }
 
 // VolumeRequest represents a request to create a volume.
