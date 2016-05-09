@@ -22,7 +22,7 @@ type Server struct {
 	PublicIP        string             `json:"public_ip,omitempty"`
 	State           string             `json:"state,omitempty"`
 	Tags            []string           `json:"tags,omitempty"`
-	Volumes         map[string]*Volume `json:"volumes,omitempty`
+	Volumes         map[string]*Volume `json:"volumes,omitempty"`
 }
 
 // ServerRequest represents a request to create a server.
