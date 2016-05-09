@@ -10,7 +10,7 @@ type ImagesService struct {
 	client *Client
 }
 
-// Images represents a Scaleway images.
+// Image represents a Scaleway images.
 type Image struct {
 	CreationDate     Ntime  `json:"creation_date,omitempty"`
 	ModificationDate Ntime  `json:"modification_date,omitempty"`
