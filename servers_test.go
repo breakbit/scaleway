@@ -56,7 +56,7 @@ func TestServersService_Create(t *testing.T) {
 		State:        "running",
 		Tags:         []string{"test", "www"},
 		Volumes: map[string]*Volume{
-			"0": &Volume{
+			"0": {
 				ExportURI:    "",
 				ID:           "d9257116-6919-49b4-a420-dcfdff51fcb1",
 				Name:         "vol simple snapshot",
@@ -107,7 +107,7 @@ func TestServersService_List(t *testing.T) {
 			State:        "running",
 			Tags:         []string{"test", "www"},
 			Volumes: map[string]*Volume{
-				"0": &Volume{
+				"0": {
 					ExportURI:    "",
 					ID:           "c1eb8f3a-4f0b-4b95-a71c-93223e457f5a",
 					Name:         "vol simple snapshot",
@@ -147,7 +147,7 @@ func TestServersService_Get(t *testing.T) {
 		State:        "running",
 		Tags:         []string{"test", "www"},
 		Volumes: map[string]*Volume{
-			"0": &Volume{
+			"0": {
 				ExportURI:    "",
 				ID:           "c1eb8f3a-4f0b-4b95-a71c-93223e457f5a",
 				Name:         "vol simple snapshot",
