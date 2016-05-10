@@ -37,6 +37,7 @@ type Client struct {
 	Snapshots     *SnapshotsService
 	Images        *ImagesService
 	Servers       *ServersService
+	Actions       *ActionsService
 }
 
 // timeLayout represents the time layout needed for parsing.
@@ -84,6 +85,7 @@ func NewClient(httpClient *http.Client) *Client {
 	c.Snapshots = &SnapshotsService{client: c}
 	c.Images = &ImagesService{client: c}
 	c.Servers = &ServersService{client: c}
+	c.Actions = &ActionsService{client: c}
 	return c
 }
 
