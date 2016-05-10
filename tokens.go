@@ -93,7 +93,7 @@ func (s *TokensService) Get(id string) (*Token, *Response, error) {
 // Update increases token expiration time of 30 minutes.
 func (s *TokensService) Update(id string) (*Token, *Response, error) {
 	u := fmt.Sprintf("/tokens/%s", id)
-	req, err := s.client.NewRequestAccount("PATCH", u, nil)
+	req, err := s.client.NewRequestAccount("PATCH", u, struct{}{})
 	if err != nil {
 		return nil, nil, err
 	}
