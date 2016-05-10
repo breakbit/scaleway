@@ -12,7 +12,7 @@ access differents parts of the Scaleway API. For example:
     client := scaleway.NewClient(nil)
 
     // Create a new token
-    inBody := &TokenRequest{
+    inBody := &scaleway.TokenRequest{
         "foo@bar.com",
         "foobar",
         true,
@@ -21,7 +21,7 @@ access differents parts of the Scaleway API. For example:
     // Do the action
     token, _, _ := client.Tokens.Create(inBody)
 
-	client.AuthToken = token
+	client.AuthToken = token.ID
 
 */
 package scaleway

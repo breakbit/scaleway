@@ -26,7 +26,7 @@ access differents parts of the Scaleway API. For example:
 client := scaleway.NewClient(nil)
 
 // Create a new token
-inBody := &TokenRequest{
+inBody := &scaleway.TokenRequest{
     "foo@bar.com",
     "foobar",
     true,
@@ -36,7 +36,7 @@ inBody := &TokenRequest{
 token, _, _ := client.Tokens.Create(inBody)
 
 // Set the auth token needed for the futurs calls
-client.AuthToken = token
+client.AuthToken = token.ID
 ```
 
 [Scaleway API]: https://developer.scaleway.com
