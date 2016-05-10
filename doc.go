@@ -5,7 +5,7 @@
 /*
 Package scaleway provides a client for using the Scaleway API.
 
-Construct a new Scaleway client,the use the various services on the client to
+Construct a new Scaleway client, then use the various services on the client to
 access differents parts of the Scaleway API. For example:
 
     // Create a client

@@ -17,7 +17,7 @@ go get github.com/breakbit/scaleway
 import "github.com/breakbit/scaleway"
 ```
 
-Construct a new Scaleway client,the use the various services on the client to
+Construct a new Scaleway client, then use the various services on the client to
 access differents parts of the Scaleway API. For example:
 
 
