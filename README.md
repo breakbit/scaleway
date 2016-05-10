@@ -1,10 +1,10 @@
 # scaleway
 
+[![Build Status](https://travis-ci.org/breakbit/scaleway.svg?branch=develop)](https://travis-ci.org/breakbit/scaleway) [![Coverage Status](https://coveralls.io/repos/github/breakbit/scaleway/badge.svg?branch=develop)](https://coveralls.io/github/breakbit/scaleway?branch=develop) [![Go Report Card](https://goreportcard.com/badge/github.com/breakbit/scaleway)](https://goreportcard.com/report/github.com/breakbit/scaleway)
+
 scaleway is a Go client library for accessing the [Scaleway API].
 
 This library is written only with the Go standard library, no package dependencies.
-
-[![Build Status](https://travis-ci.org/breakbit/scaleway.svg?branch=develop)](https://travis-ci.org/breakbit/scaleway) [![Coverage Status](https://coveralls.io/repos/github/breakbit/scaleway/badge.svg?branch=develop)](https://coveralls.io/github/breakbit/scaleway?branch=develop) [![Go Report Card](https://goreportcard.com/badge/github.com/breakbit/scaleway)](https://goreportcard.com/report/github.com/breakbit/scaleway)
 
 ## Install
 
