@@ -78,3 +78,33 @@ func (s *ServersService) listServers() ([]*Server, *Response, error) {
 	}
 	return servers.Servers, resp, nil
 }
+
+// Get returns info for a specific server.
+func (s *ServersService) Get(id string) (*Server, *Response, error) {
+	u := fmt.Sprintf("/servers/%s", id)
+	req, err := s.client.NewRequestAccount("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	server := new(serverResponse)
+	resp, err := s.client.Do(req, server)
+	if err != nil {
+		return nil, nil, err
+	}
+	return server.Server, resp, nil
+}
+
+// Delete deletes a server.
+func (s *ServersService) Delete(id string) (*Response, error) {
+	u := fmt.Sprintf("/server/%s", id)
+	req, err := s.client.NewRequestAccount("DELETE", u, nil)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := s.client.Do(req, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
