@@ -2,7 +2,7 @@ package scaleway
 
 import "fmt"
 
-// ServersService handles communication with the servers related
+// ActionsService handles communication with the servers related
 // methods of the Scaleway API.
 //
 // Scaleway API docs: https://developer.scaleway.com/#servers-actions
