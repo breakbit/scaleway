@@ -62,7 +62,7 @@ func (s *VolumesService) List() ([]*Volume, *Response, error) {
 
 func (s *VolumesService) listVolumes() ([]*Volume, *Response, error) {
 	u := fmt.Sprintf("/volumes")
-	req, err := s.client.NewRequestAccount("GET", u, nil)
+	req, err := s.client.NewRequestCompute("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -78,7 +78,7 @@ func (s *VolumesService) listVolumes() ([]*Volume, *Response, error) {
 // Get returns info for a specific volume.
 func (s *VolumesService) Get(id string) (*Volume, *Response, error) {
 	u := fmt.Sprintf("/volumes/%s", id)
-	req, err := s.client.NewRequestAccount("GET", u, nil)
+	req, err := s.client.NewRequestCompute("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -94,7 +94,7 @@ func (s *VolumesService) Get(id string) (*Volume, *Response, error) {
 // Delete deletes a volume.
 func (s *VolumesService) Delete(id string) (*Response, error) {
 	u := fmt.Sprintf("/volumes/%s", id)
-	req, err := s.client.NewRequestAccount("DELETE", u, nil)
+	req, err := s.client.NewRequestCompute("DELETE", u, nil)
 	if err != nil {
 		return nil, err
 	}
