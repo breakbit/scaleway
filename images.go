@@ -47,7 +47,7 @@ type imageListResponse struct {
 // Create creates images.
 func (s *ImagesService) Create(tr *ImageRequest) (*Image, *Response, error) {
 	u := fmt.Sprintf("/images")
-	req, err := s.client.NewRequestAccount("POST", u, tr)
+	req, err := s.client.NewRequestCompute("POST", u, tr)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -67,7 +67,7 @@ func (s *ImagesService) List() ([]*Image, *Response, error) {
 
 func (s *ImagesService) listImages() ([]*Image, *Response, error) {
 	u := fmt.Sprintf("/images")
-	req, err := s.client.NewRequestAccount("GET", u, nil)
+	req, err := s.client.NewRequestCompute("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -83,7 +83,7 @@ func (s *ImagesService) listImages() ([]*Image, *Response, error) {
 // Get returns info for a specific image.
 func (s *ImagesService) Get(id string) (*Image, *Response, error) {
 	u := fmt.Sprintf("/images/%s", id)
-	req, err := s.client.NewRequestAccount("GET", u, nil)
+	req, err := s.client.NewRequestCompute("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -99,7 +99,7 @@ func (s *ImagesService) Get(id string) (*Image, *Response, error) {
 // Delete deletes a image.
 func (s *ImagesService) Delete(id string) (*Response, error) {
 	u := fmt.Sprintf("/images/%s", id)
-	req, err := s.client.NewRequestAccount("DELETE", u, nil)
+	req, err := s.client.NewRequestCompute("DELETE", u, nil)
 	if err != nil {
 		return nil, err
 	}
