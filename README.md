@@ -25,17 +25,13 @@ access differents parts of the Scaleway API. For example:
 // Create a client
 client := scaleway.NewClient(nil)
 
-// Create a new token
-inBody := &scaleway.TokenRequest{
-    "foo@bar.com",
-    "foobar",
-    true,
-}
+// Create credentials structure
+credentials := scaleway.NewCredentials("foo@bar.com", "foobar")
 
-// Do the action
-token, _, _ := client.Tokens.Create(inBody)
+// Create new token
+token, _, _ := client.Tokens.Create(credentials, true)
 
-// Set the auth token needed for the futurs calls
+// Use this token
 client.AuthToken = token.ID
 ```
 

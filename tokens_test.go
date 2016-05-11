@@ -15,16 +15,18 @@ func TestTokensService_Create(t *testing.T) {
 	setup()
 	defer teardown()
 
-	inBody := &TokenRequest{
-		"foo@bar",
-		"foobar",
-		true,
+	credentials := NewCredentials("foo@bar.com", "foobar")
+	tokenExpires := true
+
+	inBody := &tokenRequest{
+		Credentials: credentials,
+		Expires:     tokenExpires,
 	}
 
 	data := testOpenFixture(t, filepath.Join(fixtureDir, "tokens_create.json"))
 
 	mux.HandleFunc("/tokens", func(w http.ResponseWriter, r *http.Request) {
-		v := new(TokenRequest)
+		v := new(tokenRequest)
 		json.NewDecoder(r.Body).Decode(v)
 
 		testMethod(t, r, "POST")
@@ -36,7 +38,7 @@ func TestTokensService_Create(t *testing.T) {
 		fmt.Fprint(w, string(data))
 	})
 
-	token, _, err := client.Tokens.Create(inBody)
+	token, _, err := client.Tokens.Create(credentials, tokenExpires)
 	if err != nil {
 		t.Errorf("Tokens.Create returned error: %v", err)
 	}

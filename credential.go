@@ -1,15 +1,15 @@
 package scaleway
 
-// Credential represents a Scaleway login composed by email and password.
-type Credential struct {
+// Credentials represents a Scaleway login composed by email and password.
+type Credentials struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
-// NewCredential returns a new Scaleway Credential need for generating
+// NewCredentials returns a new Scaleway Credential need for generating
 // the first auth-token.
-func NewCredential(email string, password string) *Credential {
-	return &Credential{
+func NewCredentials(email string, password string) *Credentials {
+	return &Credentials{
 		Email:    email,
 		Password: password,
 	}

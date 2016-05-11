@@ -1,6 +1,9 @@
 package scaleway
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // TokensService handles communication with the tokens related
 // methods of the Scaleway API.
@@ -20,11 +23,14 @@ type Token struct {
 	Permission        []string `json:"permissions"`
 }
 
-// TokenRequest represents a request to create a token.
-type TokenRequest struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-	Expires  bool   `json:"expires"`
+func (t *Token) String() string {
+	return fmt.Sprintf("id: %s, created: %s, expires: %s", t.ID, time.Time(t.CreationDate), time.Time(t.Expires))
+}
+
+// tokenRequest represents a request to create a token.
+type tokenRequest struct {
+	*Credentials
+	Expires bool `json:"expires"`
 }
 
 // tokenResponse represents a Scaleway token creation response.
@@ -39,7 +45,11 @@ type tokenListResponse struct {
 
 // Create authenticates a user against their username, password, and then
 // returns a new Token, which can be used until it expires.
-func (s *TokensService) Create(tr *TokenRequest) (*Token, *Response, error) {
+func (s *TokensService) Create(credentials *Credentials, expires bool) (*Token, *Response, error) {
+	tr := &tokenRequest{
+		Credentials: credentials,
+		Expires:     expires,
+	}
 	u := fmt.Sprintf("/tokens")
 	req, err := s.client.NewRequestAccount("POST", u, tr)
 	if err != nil {
