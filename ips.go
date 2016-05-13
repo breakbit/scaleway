@@ -40,7 +40,7 @@ type ipListResponse struct {
 // Create a reserved IP.
 func (s *IPsService) Create(ir *IPRequest) (*IP, *Response, error) {
 	u := fmt.Sprintf("/ips")
-	req, err := s.client.NewRequestCompute("POST", u, vr)
+	req, err := s.client.NewRequestCompute("POST", u, ir)
 	if err != nil {
 		return nil, nil, err
 	}
