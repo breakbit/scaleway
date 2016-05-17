@@ -43,7 +43,7 @@ type snapshotListResponse struct {
 // Create create snapshot of a volume.
 func (s *SnapshotsService) Create(sr *SnapshotRequest) (*Snapshot, *Response, error) {
 	u := fmt.Sprintf("/snapshots")
-	req, err := s.client.NewRequestAccount("POST", u, sr)
+	req, err := s.client.NewRequestCompute("POST", u, sr)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -63,7 +63,7 @@ func (s *SnapshotsService) List() ([]*Snapshot, *Response, error) {
 
 func (s *SnapshotsService) listSnapshots() ([]*Snapshot, *Response, error) {
 	u := fmt.Sprintf("/snapshots")
-	req, err := s.client.NewRequestAccount("GET", u, nil)
+	req, err := s.client.NewRequestCompute("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -79,7 +79,7 @@ func (s *SnapshotsService) listSnapshots() ([]*Snapshot, *Response, error) {
 // Get returns info for a specific snapshot.
 func (s *SnapshotsService) Get(id string) (*Snapshot, *Response, error) {
 	u := fmt.Sprintf("/snapshots/%s", id)
-	req, err := s.client.NewRequestAccount("GET", u, nil)
+	req, err := s.client.NewRequestCompute("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -95,7 +95,7 @@ func (s *SnapshotsService) Get(id string) (*Snapshot, *Response, error) {
 // Update updates the details about snapshot.
 func (s *SnapshotsService) Update(id string, sr *SnapshotRequest) (*Snapshot, *Response, error) {
 	u := fmt.Sprintf("/snapshots/%s", id)
-	req, err := s.client.NewRequestAccount("PUT", u, sr)
+	req, err := s.client.NewRequestCompute("PUT", u, sr)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -111,7 +111,7 @@ func (s *SnapshotsService) Update(id string, sr *SnapshotRequest) (*Snapshot, *R
 // Delete deletes a snapshot.
 func (s *SnapshotsService) Delete(id string) (*Response, error) {
 	u := fmt.Sprintf("/snapshots/%s", id)
-	req, err := s.client.NewRequestAccount("DELETE", u, nil)
+	req, err := s.client.NewRequestCompute("DELETE", u, nil)
 	if err != nil {
 		return nil, err
 	}
