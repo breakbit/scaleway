@@ -46,7 +46,7 @@ type serverListResponse struct {
 // Create creates images.
 func (s *ServersService) Create(sr *ServerRequest) (*Server, *Response, error) {
 	u := fmt.Sprintf("/servers")
-	req, err := s.client.NewRequestAccount("POST", u, sr)
+	req, err := s.client.NewRequestCompute("POST", u, sr)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -66,7 +66,7 @@ func (s *ServersService) List() ([]*Server, *Response, error) {
 
 func (s *ServersService) listServers() ([]*Server, *Response, error) {
 	u := fmt.Sprintf("/servers")
-	req, err := s.client.NewRequestAccount("GET", u, nil)
+	req, err := s.client.NewRequestCompute("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -82,7 +82,7 @@ func (s *ServersService) listServers() ([]*Server, *Response, error) {
 // Get returns info for a specific server.
 func (s *ServersService) Get(id string) (*Server, *Response, error) {
 	u := fmt.Sprintf("/servers/%s", id)
-	req, err := s.client.NewRequestAccount("GET", u, nil)
+	req, err := s.client.NewRequestCompute("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -98,7 +98,7 @@ func (s *ServersService) Get(id string) (*Server, *Response, error) {
 // Delete deletes a server.
 func (s *ServersService) Delete(id string) (*Response, error) {
 	u := fmt.Sprintf("/server/%s", id)
-	req, err := s.client.NewRequestAccount("DELETE", u, nil)
+	req, err := s.client.NewRequestCompute("DELETE", u, nil)
 	if err != nil {
 		return nil, err
 	}
