@@ -37,7 +37,7 @@ type actionListResponse struct {
 // Exec executes action for a specific server.
 func (s *ActionsService) Exec(id string, ar *ActionRequest) (*Task, *Response, error) {
 	u := fmt.Sprintf("/servers/%s/action", id)
-	req, err := s.client.NewRequestAccount("POST", u, ar)
+	req, err := s.client.NewRequestCompute("POST", u, ar)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -57,7 +57,7 @@ func (s *ActionsService) List(id string) ([]string, *Response, error) {
 
 func (s *ActionsService) listActions(id string) ([]string, *Response, error) {
 	u := fmt.Sprintf("/servers/%s/action", id)
-	req, err := s.client.NewRequestAccount("GET", u, nil)
+	req, err := s.client.NewRequestCompute("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
