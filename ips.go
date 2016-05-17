@@ -92,7 +92,7 @@ func (s *IPsService) Get(id string) (*IP, *Response, error) {
 // Attach allow you to attach an IP to a server.
 func (s *IPsService) Attach(ir *IPRequest, id string) (*IP, *Response, error) {
 	u := fmt.Sprintf("/ips/%s", id)
-	req, err := s.client.NewRequestCompute("PUT", u, nil)
+	req, err := s.client.NewRequestCompute("PUT", u, ir)
 	if err != nil {
 		return nil, nil, err
 	}
